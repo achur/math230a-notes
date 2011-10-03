@@ -1,0 +1,4 @@
+This repo contains the notes for Stanford Math 230a
+(Measure-theoretic probability)
+
+Run pdflatex notes.tex to produce the pdf.

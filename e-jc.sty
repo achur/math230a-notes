@@ -1,0 +1,47 @@
+%% Adapted from EJC style sheet
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\setlength{\textwidth}{6.3in}
+\setlength{\textheight}{8.7in}
+\setlength{\topmargin}{0pt}
+\setlength{\headsep}{0pt}
+\setlength{\headheight}{0pt}
+\setlength{\oddsidemargin}{0pt}
+\setlength{\evensidemargin}{0pt}
+
+\newenvironment{corrigendum}[1]%
+{\clearpage\newpage\section*{Corrigendum -- submitted #1}}{}
+
+\def\reusenumber#1#2{\setcounter{#1}{#2}\addtocounter{#1}{-1}}
+
+\def\specs#1#2#3{\def\papno{#1}\def\volno{#2}\def\volyear{#3}}
+\ifx\volno\undefined\def\volno{16}\fi
+\ifx\volyear\undefined\def\volyear{2009}\fi
+\ifx\papno\undefined\def\papno{R00}\fi
+
+\newfont{\footsc}{cmcsc10 at 8truept}
+\newfont{\footbf}{cmbx10 at 8truept}
+\newfont{\footrm}{cmr10 at 10truept}
+\renewcommand{\ps@plain}{%
+\renewcommand{\@oddfoot}{\footsc Math 230A / Stat 310A Notes \hfil\footrm\thepage}}
+\pagestyle{plain}
+
+
+%%%  Squashing the bibliography together a bit
+  \newlength{\BiblioSpacing}
+  \setlength{\BiblioSpacing}{0.4ex plus 0.1ex minus 0.1ex}
+  \newcommand{\SquashBibFurther}{%
+     \setlength{\BiblioSpacing}{0.2ex plus 0.1ex}}
+
+  \let\oldthebibliography=\thebibliography
+  \let\endoldthebibliography=\endthebibliography
+  \renewenvironment{thebibliography}[1]{%
+    \begin{oldthebibliography}{#1}%
+      \setlength{\parskip}{\BiblioSpacing}
+      \setlength{\itemsep}{\BiblioSpacing}
+  }%
+  {%
+    \end{oldthebibliography}%
+  }
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%

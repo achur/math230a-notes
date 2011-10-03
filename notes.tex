@@ -1,0 +1,302 @@
+\documentclass[12pt]{article}
+\usepackage{e-jc}
+\usepackage{amsfonts}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{amsthm}
+\usepackage{algorithmic}
+\usepackage{fancyhdr}
+\usepackage{hyperref}
+
+\hypersetup {
+  colorlinks=true,
+  linkcolor=black,
+  citecolor=blue,
+  pdftitle={Math 230A Notes}
+  pdfauthor={Churchill}
+  pdfsubject={Notes from Math230A/Stat310A Probability Theory}
+  pdfkeywords={Probability}{Notes}
+}
+
+\usepackage{graphicx}
+\usepackage{wrapfig}
+\usepackage{url}
+\long\def\symbolfootnote[#1]#2{\begingroup%
+\def\thefootnote{\fnsymbol{footnote}}\footnote[#1]{#2}\endgroup}
+\newtheorem{lemma}{Lemma}
+\newtheorem{theorem}{Theorem}
+\newtheorem{defn}{Definition}
+
+\title{Math 230A / Stat 310A -- Probability Theory -- Notes}
+
+\author{
+Alex Churchill\\
+\small \texttt{achur@stanford.edu}
+}
+
+\date{Autumn, 2011}
+
+\begin{document}
+
+\maketitle
+\thispagestyle{empty} % ignore page number on first page
+\tableofcontents
+
+
+\newpage
+
+\setcounter{page}{1} % set page number back to 1
+
+\section{Course Information}
+Prof. Persi Diaconis, Sequoia 131, 725-1965 (no email) \\
+Office Hours: Wednesday 1:30 - 3:00
+\\ \\
+TA. Anirban, Sequoia 208 (anirbanb@stanford.edu) \\
+Office Hours: Friday 10-12
+\\ \\
+TA. Sumit, Sequoia 237 (sumitm@stanford.edu) \\
+Office Hours: Monday 2-4
+\\ \\
+Text: P. Billingsley, \underline{Probability and Measure} 3rd Ed. (On reserve at Math Library).
+\\ \\
+Grading: Homework (30\%), Midterm (30\%), Final (40\%)
+\\ \\
+Midterm: Thursday Nov. 3, in class; 5:30-8:00 pm; One $3 \times 5$ notecard allowed.
+\\ \\
+Final: Thursday, Dec. 15, 7-10 pm
+
+\section{Week 1}
+This week covers material from sections 1 and 2 in the book.
+
+\subsection{Introduction}
+We start by posing a simple probability problem: how many people must be in a room for even odds that two people will have the same birthday?
+\\ \\
+I wasn't in class for this derivation, so I'm not sure exactly how it happened, but it is easy enough to estimate using the Poisson distribution's approximation of the binomial distribution (though note I'm fairly sure this wasn't the approximation used in class).
+\\ \\
+Recall that the Binomial Distribution determines the number of successes of $n$ experiments drawn with probability $p$.  In this case, given $N$ people in the room, the number of total birthday pairs is ${N \choose 2}$.  For each pair, the probability the two birthdays are on the same day is $1/365$.  Therefore, to apply the Poisson approximation, the expected number of birthday pairs is $\lambda = {N \choose 2}/365$, so we estimate the probability of $k$ successful trials to be $\frac{\lambda^k e^{-\lambda}}{k!}$.  Therefore, the probability there are no successful trials is approximately $e^{-{N \choose 2}/365}$, which turns out to be slightly less than $0.5$ for $N = 23$.
+\\ \\
+{\it Variations:}\\ \\
+Let the probability a person is born on day $i$ be $\theta_i$ (in the usual case, $\theta_i = 1/365$) where $\sum \theta_i = 1$.
+\\ \\
+How many people for even odds of $j$ matching birthdays in $N$ days? \\
+Answer: In general, $k = \{ N^{j-1} ln \frac{1}{1-p} \}^{1/j}$.\\
+Cash \$10 to whomever proves this.
+\\ \\
+\subsection{Coin Tossing}
+We introduce a model for fair coin tossing:
+\\ \\
+Let $\Sigma$ be the interval $(0, 1]$.  For $0 < a \le b \le 1$, define $P([a,b]) = b-a$.
+\\ \\
+If $I_1, ..., I_k$ are disjoint intervals, define $P(\cup_{i=1}^k I_k) = \sum_{i=1}^k |I_k|$.
+\\ \\
+Write $\omega \in [0,1]$ as binary: $\omega = \sum_{i=1}^\infty \frac{d_i(\omega)}{2^i}$.
+\\ \\
+$d_i: (0,1] \rightarrow \{0, 1\}$ where $d_i$ is constructed by breaking $(0, 1]$ into $i$ equally-sized intervals and assigning $d_i$ to 0, 1, 0, 1, ... among those intervals (not a formal definition!).
+\\ \\
+Then $P(\{ \omega: d_i(\omega) = 1\}) = 1/2$, so we say $P\{d_i = 1\} = 1/2$.
+\\ \\
+$P(d_1 = d_2 = 1) = 1/4$, and more generally, $P(d_1 = e_1, ..., d_k = e_k) = 1/2^k$ for $e_i \in \{0, 1\}$.
+
+\subsection{Strong Law (Coin Tossing)}
+\begin{lemma}
+(Markov's Inequality): Given $f:(0, 1] \rightarrow [0, \infty)$, $P\{\omega: f(\omega) \ge a\} \le \frac{ \int_0^1 f(\omega) d \omega }{a}$.
+\end{lemma}
+\begin{proof}
+Note that we break the integral into two pieces: $\int_{\{ \omega : f(\omega) \ge a \}} f(\omega) d\omega +\int_{\{ \omega : f(\omega) \ge a \}} f(\omega) d\omega$ at which point the proof simply notices that the second integral must be positive and the first is at least $a P\{ \omega : f(\omega) \ge a \}$
+\end{proof}
+
+\begin{theorem}
+(Weak Law of Large Numbers for Coin Tossing): For all $\epsilon > 0$, $P \{ | \frac{1}{n} \sum d_i - 1/2 | > \epsilon \} \rightarrow 0$ as $n \rightarrow \infty$.
+\end{theorem}
+\begin{proof}
+Note it is easier to work with $r_i(\omega) = 2 \cdot d_i(\omega) - 1$; it is enough to show $P\{ | \frac{1}{n} \sum_{i=1}^n r_i | > \epsilon \} \rightarrow 0$.
+\\ \\
+Evaluate $\int_0^1 r_i(\omega) d\omega = 0$ and $\int_0^1 r_i(\omega) r_j(\omega) d\omega = 1$ if $i = j$ and $0$ otherwise.
+\\ \\
+Hence, $\int_0^1 (\sum_{i=1}^n r_i(\omega) )^2 d\omega = n$.
+\\ \\
+Finally, note $P \{ | \frac{1}{n} \sum_{i=1}^n r_i | > \epsilon \} = P \{ | \sum_{i=1}^n r_i |^2 > n^2 \cdot \epsilon^2 \} \le \frac{1}{n \epsilon^2} \rightarrow 0$ by Markov's inequality.
+\end{proof}
+
+Now, we would like to say
+$$\lim_{n \to \infty} \frac{1}{n} \sum_{i=1}^n d_i(\omega) = \frac{1}{2}$$
+but we can't:
+$$ \omega = 0.00111100000000111111111111111100...$$
+
+So instead...
+
+\begin{theorem}
+(Strong Law of Large Numbers for Coin Tossing): $\lim_{n \to \infty} \frac{1}{n} \sum_{i=1}^n d_i(\omega) = \frac{1}{2}$ except for $\omega$ in a negligible set (later: true for $\omega$ almost everywhere).
+\end{theorem}
+\begin{proof}
+Let $r_i = 2d_i - 1$.  Show $\frac{1}{n} \sum_{i=1}^n r_i \rightarrow 0$.
+\\ \\
+Last time, $P\{ | \frac{s_n}{n} | > \epsilon \} = P \{ s_n^4 \ge (\epsilon n)^4 \}$.
+\\ \\
+By Markov's inequality,
+$$\le \frac{ \int_0^1 |s_n \omega|^4 d \omega }{\epsilon^4 n^4} \le \frac{3}{\epsilon^4 n^2}$$
+We show $\int |s_n|^4 \le 3n^2$.
+\\ \\
+Choose $\epsilon_n \to 0$ so $\sum_{n=1}^\infty \frac{1}{n^2 \epsilon_n^4} < \infty$.
+e.g. let $\epsilon_n = \frac{1}{n^{1/5}}$, let $B = \{ \omega: lim \textrm{ } exists \}$, $A_n = \{ \omega: | \frac{s_n}{n} | \ge \epsilon_n \}$.
+Then if $\omega \in \cap_{n=m}^\infty A_n^C$, $\omega$ in $B$:
+$$\cap_{n=m}^\infty A_n^C \subset B \textrm{ on } B^C \subset \cup_{n=m}^\infty A_n$$
+$A_n = \cup_{k=1}^{k(n)} I_{nk}$ so $|A_n| \le \frac{1}{n^2 \epsilon_n^4}$\\
+$b^C \subset \cup_{n=1, k=1}^\infty I_{nk}$ so $\sum_{k=1, n=m}^\infty |I_{n,k}| < \epsilon$.
+\\ \\
+\end{proof}
+Remarks: Borel proved this first, and was studying the number theory problem:\\ \\
+For $\omega \in (0, 1]$, the proportion of the first $n$ binary digits tends to $1/2$; same for all bases simultaneously.
+\\ \\
+Difference between weak and strong laws: weak law says gets close to 1/2, strong law says for almost everywhere, gets close and stays there.
+\\ \\
+Notice that $B = \{ \omega : \lim \frac{s_n}{n} = 0 \} = \cap_{k=1}^\infty \cup_{m=1}^\infty \cap_{n=m}^\infty \{ \omega: |\frac{s_n}{n} | < \frac{1}{k} \}$ is a complicated set.
+\\ \\
+\subsection{Fields and $\sigma$-Algebras}
+
+\begin{defn}
+Let $\Omega$ be any set, and $\mathcal{F}_0$ a collection of subsets is a {\bf Field} if:
+
+\begin{enumerate}
+\item  $\emptyset, \Omega \in \mathcal{F}_0$
+\item  $A \in \mathcal{F}_0 \Rightarrow A^C \in \mathcal{F}_0$
+\item  $A_1, ..., A_n \in \mathcal{F}_0 \Rightarrow \cup_{i=1}^n A_i \in \mathcal{F}_0$
+\end{enumerate}
+
+\end{defn}
+
+\begin{defn}
+Let $\Omega$ be any set, and $\mathcal{F}_0$ a collection of subsets is a {\bf $\sigma$-Algebra} if:
+
+\begin{enumerate}
+\item  $\emptyset, \Omega \in \mathcal{F}_0$
+\item  $A \in \mathcal{F}_0 \Rightarrow A^C \in \mathcal{F}_0$
+\item  $A_1, ... \in \mathcal{F}_0 \Rightarrow \cup_{i=1}^\infty A_i \in \mathcal{F}_0$
+\end{enumerate}
+
+\end{defn}
+
+That is, a $\sigma$-Field is a Field closed under countable unions.
+\\ \\
+Example: The Borel sets are the minimal $\sigma$-algebra containing all open intervals $I \in [-\infty, \infty]$.  Note that there is no easy description of Borel sets and constructing them requires transfinite operations.  But it doesn't matter because Borel sets will just work the way we want them to anyway.
+\\ \\
+
+\begin{defn}
+$(\Sigma, \mathcal{F})$ be a (set, $\sigma$-algebra).  A function $P$ is a {\bf probability} if
+
+\begin{enumerate}
+\item $P(\emptyset) = 0$, $P(\Omega) = 1$
+\item $P(A) = 1 - P(A^C)$ for all $A \in \mathcal{F}$
+\item $A_i \in \mathcal{F}$ for all $1 \le i < \infty$, $P(\cup_1^\infty A_i) = \sum_1^\infty P(A_i)$ for all $A_i$ disjoint.
+\end{enumerate}
+
+In other words, $P$ is just a measure that takes on value $1$ for $\Omega$.
+
+\\ \\
+Task: Say $\mathcal{F}_0$ field of subsets.  Given $P$ on $\mathcal{F}_0$, want to extend $P$ to $\sigma(\mathcal{F}_0)$.  (We follow the Greeks)
+\\ \\
+Define: For al $A \in \Sigma$ $P^*(A) = \inf \sum_{i=1}^\infty P(A_i)$ where $A \subset \cup_{i=1}^\infty A_i$.
+\\ \\
+In this case, $P^*$ is an outer measure (and for our interval definition, is in fact the Lebesgue outer measure).
+\\ \\
+Some obvious facts: (1) $P^*(\emptyset) = 0$.  (2) Similarly, $P^*(\Omega) = 1$.  (3) If $A \subset B$, then $P^*(A) \le P^*(B)$.  (4) Given $\{A_i\}$ any sets in $\Omega$, $P^*(\cup A_i) \le \sum_{i=1}^\infty P^*(A_i)$ (subadditivity).
+\\ \\
+Proof of (4): \\
+Fix $\epsilon > 0$, choose $B_{ik} \in \mathcal{F}_0$ : $\cup B_{ik} \supset A_i$ and $\sum_{i=1}^\infty P(B_{ik}) \le P^*(A_i) + \epsilon/2^i$.
+\\ \\
+Then $\cup_1^\infty A_i \subset \cup_{i.k} B_{ik}$ so $P^*(\cup A_i) \le \sum_1^\infty (P^*(A_i) + \epsilon / 2^i) = \sum_1^\infty P^*(A_i) + \epsilon$.  QED.
+\\ \\
+What have we learned since the Greeks?  We can't assign a length to all subsets of (0,1].  We need a clever way of approximating (or maybe just a way to do some rigorous math) so outer measures $(P^*)$ work there.
+\\ \\
+Idea: (Caratheodory): \\
+Given $\Omega$, $\mathcal{F}_0$, $P$ on $\mathcal{F}_0$, $A$ probability, define $P^*$ as above.
+\\ \\
+Let $M = \{ A : \forall E, P^*(E) = P^*(A \cap E) + P^*(A^C \cap E) \}$.  (Collection of all measurable sets).
+\\ \\
+We show: (1) $M$ is a $\sigma$-algebra containing $\mathcal{F}_0$, (2) $P^*$ is countably additive on $M$ (in other words, $P^*$ is a measure on $M$), (3) $P^*$ agrees with $P$ for sets in $\mathcal{F}_0$, (4) $P^*$ is unique on $M$ given (1-3).
+\\ \\
+Note that $M = \{ A : \forall E, P^*(E) \ge P^*(A \cap E) + P^*(A^C \cap E) \}$ by subadditivity.
+\\ \\
+Proof that $M$ is a field: Clearly contains $\emptyset$ and $\Omega$.  Because of symmetry, if $A \in M$, $A^C$ in $M$.  Now, say $A$, $B$ in $M$.  Then $P^*(E) = P^*(B \cap E) + p^*(B^C \cap E) = P^*(A \cap B \cap E) + P^*(A^C \cap B \cap E) + P^*(A \cap B^C \cap E) + P^*(A^C \cap B^C \cap E) \ge P^*(A \cap B \cap E) + P^*((A^C \cap B \cap E) \cup (A \cap B^C \cap E) \cup (A^C \cap B^C \cap E)) = P^*((A \cap B) \cap E) + P^*((A \cap B)^C \cap E)$.
+
+
+\end{defn}
+
+
+\section{Week 2}
+This week covers material from sections 3 and 4 in the book.
+
+\subsection{$\sigma$-algebras}
+
+\subsection{Extensions}
+
+
+\section{Week 3}
+This week covers material from sections 10 - 12 in the book.
+
+\subsection{Zero/One Laws}
+
+\subsection{Law of Iterated Log}
+
+\section{Week 4}
+This week covers material from sections 13 and 14 in the book.
+
+\subsection{Distribution Functions}
+
+\subsection{Measurable Functions}
+
+
+\section{Week 5}
+This week covers material from sections 15 and 16 in the book.
+
+\subsection{Independence and Expectation}
+
+\subsection{Borel-Cantelli}
+
+
+\section{Week 6}
+This week covers material from sections 18 - 20 in the book.
+
+\subsection{Product Measures}
+
+\subsection{Fubini's Theorem}
+
+\subsection{Kernels}
+
+
+\section{Week 7}
+This week covers material from sections 21 and 22 in the book.
+
+\subsection{Moments}
+
+\subsection{Uniform Integrability}
+
+\subsection{Strong Law}
+
+
+\section{Week 8}
+This week covers material from section 25in the book.
+
+\subsection{Weak Convergeance}
+
+
+\section{Week 9}
+
+\subsection{Poisson}
+
+\subsection{Stein's Method}
+
+
+\section{Week 10}
+
+\subsection{Central Limit Theorem}
+
+
+% This is the Bibliography
+%%%%%%%%%%%%%%%
+\newpage
+\begin{thebibliography}{99}
+
+\end{thebibliography}
+
+\end{document}
