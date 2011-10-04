@@ -65,6 +65,11 @@ Midterm: Thursday Nov. 3, in class; 5:30-8:00 pm; One $3 \times 5$ notecard allo
 \\ \\
 Final: Thursday, Dec. 15, 7-10 pm
 
+\subsection{Homeworks}
+
+{\bf HW WEEK 2: READ Sec 3, 4.  Do problems 3.2(a,b); 3.3(a,b,c,d); 3.11; 3.13; 3.16; 4.11}
+
+
 \section{Week 1}
 This week covers material from sections 1 and 2 in the book.
 
@@ -249,14 +254,58 @@ Just as a heads-up (we'll prove this later), the Caratheadory theorm says:
 
 Last time, we proved $\mathcal{M}$ is a field.  We want to prove $\mathcal{M}$ is a $\sigma$-field.
 \\ \\
-Fact: If $\{ A_i \}_{n=1}^\infty \in \mathcal{M}, E \subset \Omega$, $A_i$ disjoint,
+{\bf Fact:} If $\{ A_i \}_{n=1}^\infty \in \mathcal{M}, E \subset \Omega$, $A_i$ disjoint,
 $$P^*(E \cap (\cup_{i=1}^\infty A_i)) = \sum_{i=1}^\infty P^*(E \cap A_i)$$
-Proof by induction.  If $n = 1$ we're OK.  If $n = 2$, we have:
+{\bf Proof} by induction.  If $n = 1$ we're OK.  If $n = 2$, we have:
 $$P^*(E \cap (A_1 \cup A_2)) = P^*(E \cap (A_1 \cup A_2) \cap A_1) + P^*(E \cap (A_1 \cup A_2) \cap A_2)$$
 $$ = P^*(E \cap A_1) + P^*(E \cap A_2)$$
 Same for all finite $n$.  In general, $P^*(E \cap (\cup_{i=1}^
 \infty A_i)) \ge P^*(E \cap (\cup_{i=1}^n A_i)) = \sum_{i=1}^n P^*(E \cap A_i)$.  Taking the limit as $n \to \infty$, we get $P^*(E \cap (\cup_{i=1}^\infty A_i)) \ge \sum_{i=1}^\infty P^*(E \cap A_i)$.  The other direction follows by subadditivity.
 \\ \\
+{\bf Fact:} $\mathcal{M}$ is a $\sigma$-algebra and $P^*$ is a probability on $\mathcal{M}$.
+\\ \\
+{\bf Proof:}
+Given $A_n \in \mathcal{M}$ for $1 \le n < \infty$ where $A_i'$ is defined by $A_1' = A_1$, $A_2' = A_2 \cap A_1^C$, $A_3' = A_3 \cap A_1^C \cap A_2^C$, etc.  Therefore, $A_i'$ disjoint for all $i$, but $\cup_{i=1}^\infty A_i = \cup_{i=1}^\infty A_i'$.
+\\ \\
+So without loss of generality, we can say all $A_i$ are disjoint.
+\\ \\
+Want $P^*(E) \ge P^*(E \cap (\cup A_i)) + P^*(E \cap (\cup A_i)^C$.
+\\ \\
+Set $F_n = \cup_{i=1}^n A_i$.  Then 
+$$P^*(E) = P^*(E \cap F_n) + P^*(E \cap F_n^C)$$
+$$ \ge \sum_{i=1}^n  P^*(E \cap A_i) + P^*(E \cap (\cup_{i=1}^\infty A_i)^C)$$
+so as $n \to \infty$
+$$P^*(E) \ge \sum_{i=1}^\infty P^*(E \cap A_i)$$
+$$ \ge P^*(E \cap (\cup_{i=1}^\infty A_i)) + P^*(E \cap (\cup_{i=1}^\infty A_i)^C)$$
+The reverse inequality follows directly from $A \in \mathcal{M}$ and $P^*$ countably additive on $\mathcal{M}$.
+\\ \\
+Note: $\mathcal{F}_0 \subset \mathcal{M}$, pick $A \in \mathcal{F}_0$ and $E \subset \Omega$.
+\\ \\
+From the definition of $P^*(E)$, for all $\epsilon > 0$, there exist $A_1, A_2, ...$ with $A_n \in \mathcal{F}_0$ where $E \subset \cup_{i=1}^\infty A_i$ and $\sum_{i=1}^\infty P(A_i) \le P^*(E) + \epsilon$.
+\\ \\
+Let $B_n = A_n \cap A$, $C_n = A_n \cap A^C$.  $E \cap A \subset \cup_{i=1}^n B_n$, $E \cap A^C \subset \cup C_n$.
+
+$$P^*(E \cap A) + P^*(E \cap A^C) \le \sum P(B_n) + \sum P(C_n) = \sum P(A_n) \le P^*(E) + \epsilon$$
+Letting $\epsilon \to 0$ gives us what we want.
+\\ \\
+Further, we note $P^*(A) = P(A)$ if $A \in \mathcal{F}_0$.  To show this, we know $P^*(A) \le P(A)$.  If $A \subset \cup A_i$, where $A_i \in \mathcal{F}_0$, $P(A) \le \sum P(A \cap A_i) \le \sum P(A_i)$ so $P^*(A) \ge P(A)$.
+\\ \\
+For Uniqueness, we need to define a $\Pi$ system.
+
+\begin{defn}
+A class of subsets $\mathcal{P}$ is a $\Pi$-system if it is closed under finite intersection.
+\end{defn}
+
+\begin{defn}
+A set $\mathcal{L}$ of subsets is called a $\lambda$-system if
+\begin{enumerate}
+\item $\Omega \in \mathcal{L}$
+\item $A \in \mathcal{L} \Rightarrow A^C \in \mathcal{L}$
+\item $A_1, A_2, ... \in \mathcal{L}$, with all $A_i$ disjoint guarantees $\cup_{i=1}^\infty A_i \in \mathcal{L}$.
+\end{enumerate}
+\end{defn}
+
+
 
 \subsection{Extensions}
 
