@@ -69,6 +69,9 @@ Final: Thursday, Dec. 15, 7-10 pm
 
 {\bf HW WEEK 2: READ Sec 3, 4.  Do problems 3.2(a,b); 3.3(a,b,c,d); 3.11; 3.13; 3.16; 4.11}
 
+{\bf HW WEEK 3: READ Sec 10, 11, 14.  Do problems 10.1, 10.2, 14.5, 14.8.}
+Problem: Let $F_1, F_2$ be distribution functions on $\mathbb{R}$.  Define $H_l(x,y) = (F_1(x) + F_2(y) - 1)_+$ where $(x)_+ = x$ if $x \ge 0$ and $0$ otherwise.  Define $H_u(x,y) = \min(F_1(x), F_2(y))$.  (a) Prove that $H_l$, $H_u$ are bivariate distribution functions with margins $F_1(x) = H_l(x, \infty) = H_u(x, \infty)$ and $F_2(y) = H_l(\infty, y) = H_u(\infty, y)$. (b) Prove for all $H(x,y)$, $F_1, F_2$ as margins, $H_l(x,y) \le H(x,y) \le H_u(x,y)$ for $-\infty < x,y < \infty$.
+
 
 \section{Week 1}
 This week covers material from sections 1 and 2 in the book.
@@ -305,13 +308,104 @@ A set $\mathcal{L}$ of subsets is called a $\lambda$-system if
 \end{enumerate}
 \end{defn}
 
+\begin{theorem}
+(Dynkin's $\Pi$-theorem) If $\mathcal{P}$ is a $\Pi$-system and a $\mathcal{L}$ is a $\lambda$-system, $P \subset \mathcal{L}$, then $\sigma(\mathcal{P}) \subset \mathcal{L}$
+\end{theorem}
+\begin{proof}
+If $A, B \in \mathcal{L}$, $A \subset B$, then $B \backslash A = B \cap A^C \in \mathcal{L}$.  Proof: $A \cup B^C \in \mathcal{L}$, so $B \cap A^C \in \mathcal{L}$.
+\\ \\
+Because the intersection of $\lambda$-systems is a $\lambda$-system, there is a smallest $\lambda$-system containing $\mathcal{P}$, call it $\mathcal{L}_0$.  We show that $\mathcal{L}_0$ is a $\Pi$-system.  Then we're done for $\mathcal{L}_0$, since it is a $\sigma$-algebra containing $\mathcal{P}$, so $\mathcal{L}$ is a $\sigma$-algebra containing $\mathcal{P}$.
+\\ \\
+Let $A \in \mathcal{L}_0$.  Let $\mathcal{L}_A = \{ E \subset \Sigma: E \cap A \in \mathcal{L}_0 \}$.  We claim $\mathcal{L}_A$ is a $\lambda$-system.  
+\end{proof}
 
+\begin{theorem}
+Corrolary: If $u$ and $v$ are probabilities that agree on the $\Pi$-system $\mathcal{P}$, then they agree on $\sigma(\mathcal{P})$
+\end{theorem}
+\begin{proof}
+Let $\mathcal{L}$ be all subsets of $A$ where $m(A) = v(A)$.  This is a $\lambda$-system, so $m(A) = v(A)$ for all $A \in \sigma(\mathcal{P})$.  If $B \in \mathcal{L}_A$, $A \cap B \in \mathcal{L}_0$, $A \cap (A \cap B)^C = A \cap B^C \in \mathcal{L}_0$ so $B^C \in A$.
+\\ \\
+If $\{B_i\}$ disjoint in $\mathcal{L}_A$ then $A \cap (\cup B_i) = \cup(A \cap B_i)$ so $\cup B_i \in \mathcal{L}_A$.
+\\ \\
+Say $A, B \in \mathcal{P}$ so $A \cap B \in \mathcal{P}$ so $A \in \mathcal{L}_B$.  But $\mathcal{L}_B$ is a $\lambda$-system, so $\mathcal{L}_0 \subset \mathcal{L}_B$; e.g. for every $A \in \mathcal{L}_0$, $B \in \mathcal{L}_A$, so $\mathcal{L}_0 \subset \mathcal{L}_A$ for all $A \in \mathcal{L}_0$.
+\\ \\
+So if $B, C \in \mathcal{L}_0$ then $C \in \mathcal{L}_A$; e.g. $C \cap A \in \mathcal{L}_0$.  So $\mathcal{L}_0$ is closed under finite intersections.  So $\mathcal{L}_0$ is a $\Pi$-system.
+\end{proof}
+
+Therefore, if $P$ is a probability on a field $\mathcal{F}_0 \le 2^\Omega$, then extension $P^*$ to $\sigma( \mathcal{F}_0)$ is unique.
+\\ \\
+Note we assumed $P$ was a probability on $\mathcal{F}_0$; that is we assume $A$, $A_1, A_2, ...\in \mathcal{F}_0$ with $A = \cup A_i$ and all $A_i$ disjoint then $P(A) = \sum P(A_i)$.  This check is performed in the book.
 
 \subsection{Extensions}
-
+YEAH THERE NEEDS TO BE SOME STUFF FILLED IN HERE... (Wk 2., Day 2).
 
 \section{Week 3}
 This week covers material from sections 10 - 12 in the book.
+
+\subsection{$\infty$ measures}
+\begin{defn}
+$\Omega$ any set, $\mathcal{F}$ is a field of subsets of $\Omega$ ($\emptyset \in \mathcal{F}$, $\mathcal{F}$ closed under finite intersections and complementation).  $\mu: \mathcal{F} \rightarrow [0, \infty]$, $\mu(\emptyset) = 0$, $\mu(\cup_1^\infty A_i) = \sum \mu(A_i)$ is a measure on $\mathcal{F}$.  In other words, a measure is 0 on the emptyset, nonnegative, and countably additive.
+\end{defn}
+
+If $\mu(\Omega) < \infty$, it is the same as a probability.  If $\exists A_n \in \mathcal{F}, \Omega = \cup_{n=1}^\infty A_n, \mu(A_n) < \infty$ for all $n$, $\mu$ is $\sigma$-finite.
+\\ \\
+Example: $\Omega = \mathbb{N}$, $\mu(i) = 1$, $\mu$ is $\sigma$-finite.  Similarly, $\lambda$ on $\mathbb{R}$ is $\sigma$-finite (cover $[0,1]$, $[1,2]$, ...).  However, if $\Omega = [0,1]$ and $\mu(A) = $ the number of points in $A$, $\mu$ is not $\sigma$-finite.
+\\ \\
+Why do we want to talk about this?
+\begin{enumerate}
+\item Probability densities on $\mathbb{R}$; for example, $\frac{e^{-x^2/2}}{\sqrt{2 \pi}}$ with respect to length on $\mathbb{R}$.
+\item In the $\sigma$-finite case, it is easy.
+\end{enumerate}
+Most arguments are ``same''.  For example, if $A_n \uparrow A$, $A_n, A \in \mathcal{F}$.  Then $\mu(A_n) \to \mu(A)$.  Proof.  $B_1 = A_1$, $B_n = A_n \backslash A_{n-1}$.  $\cup B_n = A$.  $\mu(A) = \sum \mu(B_i) = \lim_{n \to \infty} \sum_1^n \mu(B_i) = \lim_{n \to \infty} \mu(A_n)$.
+\\ \\
+But sometimes you need to watch it.  If $\mu$ is a probability, $A \subset B$, $\mu(B \backslash A) = \mu(B) - \mu(A)$ and if $A_n \downarrow A$ $\mu(A_n) \to \mu(A)$.  But on $\Omega = (-\infty, \infty)$, $A = (-\infty, 0]$, $B = (-\infty, 1]$, $\mu(B \backslash A) = 1$.  But $\mu(B) - \mu(A) = \infty - \infty$.
+\\ \\
+Uniqueness of extensions.  Given $\mathcal{P}$ a $\Pi$-system and $M_1, M_2$ measures on $\mathcal{P}$:
+\begin{theorem}
+If for some $\{B_i\}_{i=1}^\infty$, $B_i \in \mathcal{P}$ where $\mu_j(B_i) < \infty$ for $j = 1, 2$ and $\mu_1 = \mu_2$ on $\mathcal{P}$ then $M_1 = M_2$ on $\sigma(\mathcal{P})$.
+\end{theorem}
+\begin{proof}
+Fix $B \in \mathcal{P}$ where $\mu_j(B) < \infty$ for $j=1,2$.  Let $\nu_j(F) = \mu_j(F \cap B)$.  These are finite measures, so by $\Pi-\lambda$ theorem, $\nu_1 = \nu_2$ on $\sigma(\mathcal{P})$.  Now, let $A_1 = B_1$, $A_2 = B_2 \backslash A_1$, $A_n = B_n \backslash (\cup_{i=1}^n A_i)$.  Then for all $F$, $\mu_1(F) = \mu_1(F \cap (\cup_i A_i)) = \sum_i \mu_1 (F \cap A_i) = \sum_i \mu_2 (F \cap A_i) = \mu_2(F \cap (\cup_i A_i)) = \mu_2(F)$.
+\end{proof}
+Note that if things are not $\sigma$-finite you can have two different extensions.  See the book.
+\\ \\
+\subsection{Back to Outer Measures}
+\begin{defn}
+$\mu^*$ is an outer measure on $\Omega$ if $\mu^* : 2^\Omega \rightarrow [0, \infty]$, $\mu^*(\emptyset) = 0$, and $\mu^*(\cup A_i) \le \sum \mu^*(A_i)$.  In other words, nonnegative, nontrivial, and countably subadditive.
+\end{defn}
+
+Example: $\Omega$ any set, $\mathcal{A}$ any collection of subsets, $\emptyset \in \mathcal{A}$.  $\rho : \mathcal{A} \rightarrow [0, \infty]$ any function.  Define $\mu_\rho^* (A) = \inf \sum_{i=1}^\infty \rho(A_n)$, $A \subset \cup_{i=1}^\infty A_i$, and $\mu_\rho^*(A) = \infty$ if no such cover exists.  Claim: $\mu^*$ is an outer measure.  $\emptyset$ follows trivially (it is covered by zero sets).  The measure is definitionally nonnegative.  It is also obviously countably subadditive.
+\\ \\
+Example: Hausdorff $\gamma$ measure on $\mathbb{R}^n$.  Let $\mathcal{A}$ be the collection all closed balls $B_n(x)$. $\rho(B)$ is the volume of the ball.  $\gamma$ is fixed in $(-\infty, \infty)$.  Read more in 2nd edition of billingsley.
+\\ \\
+As usual, given an outer measure $\mu^*$, define $\mathcal{M}(\mu^*) = \{ A \subset \omega: \forall E \subset \Omega, \mu^*(E) = \mu^*(E \cap A) + \mu^*(E \cap A^C) \}$.
+\begin{theorem}
+$\mathcal{M}(\mu^*)$ is a $\sigma$-algebra and $\mu^*$ is a measure on $\mathcal{M}$.
+\end{theorem}
+\begin{proof}
+Sentence for sentence same proof as for probabilities.
+\end{proof}
+To work with $\infty$ measures, it is useful to know $\sigma$-rings, $\Omega$ a set.
+
+\begin{defn}
+A collection of subsets $\mathcal{A}$ is a $\sigma$-ring if $\emptyset \in \mathcal{A}$, $A,B \in \mathcal{A} \Rightarrow A \cap B \in \mathcal{A}$, $A, B \in \mathcal{A}$ and $A \le B$ then $\exists C_i, 1 \le i \le n$ disjoint in $\mathcal{A}$ such that $B \backslash A = \cup_{i=1}^n C_i$.
+\end{defn}
+
+Example: On $\mathbb{R}$ consider all $(a, b)$ with $-\infty \le a \le b \le \infty$ form a $\sigma$-ring.
+\\ \\
+\begin{theorem}
+(Extension Theorem) Let $\mu$ be a function on a $\sigma$-ring of subsets $\mathcal{A}$ with $\mu(A) \in [0, \infty]$, $\mu(\emptyset) = 0$, $\mu$ finitely additive and $\mu$ countably subadditive: for all $A_i, \cup A_i \in \mathcal{A}$, $\mu(\cup A_i) \le \sum_1^\infty \mu(A_i)$.  Then $\mu$ extends to a measure on $\sigma(\mathcal{A})$ and if there exists $A_i$ contained in $\mathcal{A}$ such that $\Omega = \cup_1^\infty A_i$, $\mu(A_i) < \infty$ the extension is unique.
+\end{theorem}
+\begin{proof}
+Define $\mu^*(A) = \inf \sum_{i=1}^\infty \mu(A_i)$ wher e$A \subset \cup_1^\infty A_i$ and $A_i \in \mathcal{A}$.  That is an outer measure and $\mu^*$ on $\mathcal{M}(\mu^*)$ is a $\sigma$-algebra that does the job.  We show (1) $\mathcal{A} \subset \mathcal{M}(\mu^*)$ and (2) $\mu^*(A) = \mu(A)$ for all $A \in \mathcal{A}$.
+\\ \\
+For (1), pick $A \in \mathcal{A}$.  We must show for all $E$, $\mu^*(E) \ge \mu^*(E \cap A) + \mu^*(E \cap A^C)$.  If $\mu^*(E) = \infty$ it is true.  Suppose $\mu^*(E) < \infty$.  Then for every $\epsilon$ there exists $A_i \in \mathcal{A}$ such that $\sum \mu(A_i) \le \mu^*(E) + \epsilon$.  Since $\mu^*$ is finite, $\mu^*(A_i)$ is finite for all $i$.  Set $B_n = A \cap A_n$. $B_n \in \mathcal{F}$.  Now $B_n \subset A_n$ so $A_n \backslash B_n = \cup_{i=1}^{m_n} C_{ni}$ where disjoint $C_{ni} \in \mathcal{A}$.  Then $A_n = B_n \cup (\cup_{i=1}^{m_n} C_{ni})$, $A \cap E \subset \cup B_n$.  Then $A^C \cap  E \subset \cup_n \cup_i C_{ni}$.  Now 
+$$\mu^*(E \cap A) + \mu^*(E \cap A^C) \le \sum_{n=1}^\infty \mu(B_n) + \sum_{n=1}^\infty \sum_{i=1}^{m_n} \mu(C_{ni})$$
+$$ = \sum_{n=1}^\infty \mu(B_n) + \mu(A_n - B_n)$$
+$$ = \sum_n \mu(A_n) \le \mu^*(E) + \epsilon$$
+For (2), if $A \subset \cup A_i$ where $A, A_i \in \mathcal{A}$, then $\mu(A) \le \sum_i \mu(A_i)$.  The other direction is free.
+\end{proof}
+
 
 \subsection{Zero/One Laws}
 
