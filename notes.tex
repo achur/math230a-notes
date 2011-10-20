@@ -26,6 +26,7 @@
 \newtheorem{lemma}{Lemma}
 \newtheorem{theorem}{Theorem}
 \newtheorem{defn}{Definition}
+\newtheorem{corr}{Corollary}
 
 \title{Math 230A / Stat 310A -- Probability Theory -- Notes}
 
@@ -71,6 +72,8 @@ Final: Thursday, Dec. 15, 7-10 pm
 
 {\bf HW WEEK 3: READ Sec 10, 11, 14.  Do problems 10.1, 10.2, 14.5, 14.8.}
 Problem: Let $F_1, F_2$ be distribution functions on $\mathbb{R}$.  Define $H_l(x,y) = (F_1(x) + F_2(y) - 1)_+$ where $(x)_+ = x$ if $x \ge 0$ and $0$ otherwise.  Define $H_u(x,y) = \min(F_1(x), F_2(y))$.  (a) Prove that $H_l$, $H_u$ are bivariate distribution functions with margins $F_1(x) = H_l(x, \infty) = H_u(x, \infty)$ and $F_2(y) = H_l(\infty, y) = H_u(\infty, y)$. (b) Prove for all $H(x,y)$, $F_1, F_2$ as margins, $H_l(x,y) \le H(x,y) \le H_u(x,y)$ for $-\infty < x,y < \infty$.
+\\ \\
+{\bf HW WEEK 4: READ Sec 15, 16.  Do Problems 15.1, 15.2, 16.1, 16.7 + PROBLEM (see it down there in the notes)}
 
 
 \section{Week 1}
@@ -340,7 +343,7 @@ Note we assumed $P$ was a probability on $\mathcal{F}_0$; that is we assume $A$,
 YEAH THERE NEEDS TO BE SOME STUFF FILLED IN HERE... (Wk 2., Day 2).
 
 \section{Week 3}
-This week covers material from sections 10 - 12 in the book.
+This week covers material from sections 10 - 12 and 14 in the book.
 
 \subsection{$\infty$ measures}
 \begin{defn}
@@ -407,17 +410,190 @@ For (2), if $A \subset \cup A_i$ where $A, A_i \in \mathcal{A}$, then $\mu(A) \l
 \end{proof}
 
 
-\subsection{Zero/One Laws}
+\subsection{Distribution functions on $\mathbb{R}$}
+Given probability $\mu$ we describe a {\bf distribution function} by $F(x) = \mu(-\infty, x]$.  We often define probability measures using distribution functions.  For instance, the ``Gauss Measure'' $F(x) = \frac{1}{\sqrt{2 \pi}} \int_{-\infty}^x e^{-t^2/2} dt$.
+\\ \\
+Observe (1) $\lim_{x \to -\infty} F(x) = 0$, $\lim_{x \to \infty} F(x) = 1$ (normalization), and $y < x$ means $F(x) - F(y) = \mu(-\infty, x] - \mu(-\infty, y] = \mu(y, x] \ge 0$.  Therefore, (2) $F$ is monotone.
+\\ \\
+Further, (3) if $x_n \downarrow x$, $(-\infty, x_n] \downarrow (-\infty, x]$, so $F(x_n) \downarrow F(x)$ so $F(x)$ is right continuous.  Note it isn't left continuous.  Let $\mu(A) = 1$ if $0 \in A$ and $0$ otherwise.  Then $F(x) = 0$ for $x < 0$ and $F(x) = 1$ for $x \ge 0$.
+\begin{theorem}
+Conversely, if $F(x)$ satisfies (1. normalization), (2. monotonicity), and (3. right-continuity), then $\exists !$ probability measure on $(-\infty, \infty)$ with $F(x) = \mu(-\infty, x]$.
+\end{theorem}
 
-\subsection{Law of Iterated Log}
+Note $\{(-\infty, x]: x \in \mathbb{R}\}$ is a $\Pi$-system.
+\\ \\
+Want to do this in higher dimensions.
+\\ \\
+Let $A_{x_1, x_2} = \{ (\eta_1, \eta_2) : \eta_i < x_i \}$.  Given $\mu$ on the Borel sets of $\mathbb{R}^2$, define $H(x_1, x_2) = \mu(A_{x_1, x_2})$.  $H$ is monotone, right continuous, but need a bit more.  Note $\mu(A) = \mu(A_x) - \mu(A_y) - \mu(A_w) + \mu(A_z)$
+\begin{verbatim}
+ -----------------
+ .      |        |
+ . A_w  |  A_x   |
+ .      |        |
+ -------|--------|
+ .      |        |
+ . A_z  |  A_y   |
+ . ...  |  ...   |
+
+\end{verbatim}
+In $\mathbb{R}_d$, let $A = \{(x_1, ..., x_d) : a_i \le x_i \le b_i\}$.  If $\underline{v}$ is a vertex, $sign(\underline{v}) = -1$ if $\underline{v}$ has an odd number of $a_i$'s, and $1$ otherwise.
+\\ \\
+If $H(x_1, ..., x_d), \delta_A H = \sum_{\underline{v}} sign(\underline{v}) H(\underline{v})$.  $H$ satisfies $H(x_1, ..., x_d) = \mu(A_{x_1, ..., x_d})$ for a unique probability $\mu$ $\Leftrightarrow$ $\lim_{\underline{x} \to \infty} H(\underline{x}) = 0$, $\lim_{\underline{x} \to \infty} H(\underline{x}) = 1$ (min coord goes to $-\infty$ or max coord goes to $\infty$), $H$ is right continuous and for all rectangles, $\prod(x_i, B_i] = \delta_A H \ge 0$.
+\\ \\
+So now we have a HW problem from this week: \\Let $F_1(x), F_2(x)$ be distribution functions on $\mathbb{R}$.  $H(x,y)$ with $H(x, \infty) = F_1(x)$ and $H(\infty, y) = F_2(y)$ is called a bivariate distribution function with margins $F_1$ and $F_2$.
+\\ \\
+Problem a: Consider $H_L(x, y) = (F_1(x) + F_2(y) - 1)$ ($H$-lower) and $H_U = \min(F_1(x), F_2(y))$ ($H$-upper).  Check that these are distribution functions with margins $F_1$ and $F_2$.
+\\ \\
+Problem b: For every $H$ with margins $F_1, F_2$, show $H_L(x,y) \le H(x,y) \le H_U(x,y)$.
+\\ \\
+Remark: Once we know what correlation is, $H_L$ is the most negatively correlated D.F. with margins $F_1$, $F_2$ and $H_U$ is the most positively correlated.
+\\ \\
+\subsection{Measurable Functions and Random Variables}
+Let $(\Omega, \mathcal{F})$, $(\Omega', \mathcal{F}')$ be measure spaces.
+
+\begin{defn}
+A function $T: \Omega \rightarrow \Omega'$ is {\bf measurable} if\\
+For all $A' \in \mathcal{F}'$, $T^{-1}(A') \in \mathcal{F}$
+\end{defn}
+
+Proposition: Suppose $\mathcal{F}' = \sigma(\mathcal{A})$.  (a) Then $T$ is measureable iff $T^{-1}(A') \in \mathcal{F}$, $A' \in \mathcal{A}'$.
+\\ \\
+(b) If $T_1 : (\Sigma_1, \mathcal{F}_1) \rightarrow (\Sigma_2, \mathcal{F}_2)$ and $T_2 : (\Sigma_2, \mathcal{F}_2) \rightarrow (\Sigma_3, \mathcal{F}_3)$ are measurable, then $T_2 \circ T_1 : (\Sigma_1, \mathcal{F}_1) \rightarrow (\Sigma_3, \mathcal{F}_3)$ is measurable.
+\\ \\
+Both follow directly.
+\\ \\
+\begin{defn}
+A {\bf random variable} is a measurable function $T : (\Omega, \mathcal{F}) \rightarrow (\mathbb{R}, \mathcal{B}(\mathbb{R}))$ where $\mathcal{B}(\mathbb{R})$ is the class of the Borel sets.
+\end{defn}
+\begin{defn}
+A {\bf random vector} is a measurable function $(\Omega, \mathcal{F}) \rightarrow (\mathbb{R}^n, \mathcal{B}(\mathbb{R}^n))$ where $T(\underline{x}) = (T_1(x_1), ..., T_n(x_n))$.
+\end{defn}
+
+\begin{lemma}
+$T$ is a random variable $\Leftrightarrow$ all $T_i$ are random variables.
+\end{lemma}
+\begin{proof}
+If each $T_i$ is a measure, then $T^{-1}(A_{\underline{x}}) = \cap_{i=1}^n T_i^{-1}(x_i)$.  Note this is enough by proposition (a), $A' = \{A_x\}$.
+\\ \\
+If $T$ is a random vector, then $T_i^{-1} (-\infty, x] = \cup_{n=1}^\infty T^{-1} \{ \underline{y} : y_i \le x_i \textrm{ and } y_j \le n, j \neq i\}$, so each is measurable.
+\end{proof}
+
+\begin{lemma}
+If $T: \mathbb{R}^k \rightarrow \mathbb{R}$ is continuous, then $T$ is measurable.
+\end{lemma}
+\begin{proof}
+Preimage of an open set is open (and closed set is closed) iff $T$ is continuous.  In $\mathbb{R}$, $T$ continuous $\Leftrightarrow T^{-1}(-\infty, x]$ is closed and closed sets are Borel measurable.
+\end{proof}
+
+\begin{corr}
+If $X$ and $Y$ are random variables on $\Omega$, then $X+Y$, $X \cdot Y$, $\min(X, Y)$, $\max(X,Y)$ are random variables.
+\end{corr}
+\begin{proof}
+$\Omega \rightarrow \mathbb{R}^2 \rightarrow \mathbb{R}$: composite functions will be measurable, since $f(x,y) = x+y$ is measurable.  Same for all others.
+\end{proof}
+
+\subsubsection{New measures from old:}
+Say $\mu$ is a measure on $(\Omega, \mathcal{F})$ and $T: (\Omega, \mathcal{F}) \rightarrow (\Omega', \mathcal{F}')$ is measurable.  Define push forward of measurable $T$
+$$\mu(T^{-1} (A'))  = \mu(T^{-1}(A')) = \mu \{ \omega : T(\omega) \in A'\}$$
+This is a measure.
+\\ \\
+We use this to construct measures.  Example: let $O_n$ be the orthogonal group: that is, the set of all $n times n$ matrices $M$ such that $MM^T = I$.  Want to know what it means to ``pick a matrix at random''.  Suppose we know how to pick from the normal distribution.  Let $X_{ij}$ be independent picks from $\frac{e^{-x^2/2}}{\sqrt{2 \pi}}$ (good ol' bell-shaped curve).  As math: $\Omega = \mathbb{R}^{n^2}$, define $\mathcal{P}$ as $\mathcal{P}(A_{x_{11}, ..., x_{nn}}) = \int_{-\infty}^{x_{11}} ... \int_{-\infty}^{x_{nn}} \frac{e^{-\sum x_{ij}^2}}{(\sqrt{2 \pi})^n} d x_{11} ... x_{nn}$.  Map $T: \mathbb{R}^{n^2} \rightarrow O_n$ (Gram-Schmidt).  Then $P^{T^{-1}}$ is Harr measure.
+\\ \\
+This stuff is all sort of near section 15 of the book.  
 
 \section{Week 4}
-This week covers material from sections 13 and 14 in the book.
+This week covers material from sections ~14,15 in the book.
 
-\subsection{Distribution Functions}
+\subsection{Lebesuge Interval}
+Let $(\Omega, \mathcal{F}, \mu)$ be a measure space.  For measureable $f$, define
+$$\int f d \mu = \int_\Omega f(\omega) \mu(d \omega)$$
+Strategy to define:
+\begin{enumerate}
+\item Define it for $f \in SF_+$ (simple functions)
+\item Define for $f \in m \mathcal{F}_)$
+\item Extend to $f \in m \mathcal{F}$
+\end{enumerate}
+Read Wikipedia for all of this.
 
-\subsection{Measurable Functions}
+\begin{theorem}
+(1) $f \in SF_+$, $f = \sum_{i=1}^m f_i I_{A_i} \Rightarrow \int f d \mu = \sum_{i=1}^m f_i \mu(A_i)$ \\ \\
+(2) For all $\omega$, $0 \le f(\omega) \le g(\omega) \Rightarrow 0 \le \int f d \mu \le \int g d \mu$.
+\\ \\
+(3) For all $\omega$, $0 \le f_n(\omega) \le f (\omega)$, $f_n(\omega) \uparrow f(\omega) \Rightarrow \int f_n d \omega \uparrow \int f  d \mu$.
+\\ \\
+(4) $\alpha, \beta \ge 0$, $\int(\alpha f + \beta g) d \mu = \alpha \int f d \mu + \beta \int g d \mu$
+\end{theorem}
+\begin{proof}
+(1) Note that $\ge$ is obvious (sup over all simple functions...).  Now, let $\{B_1, ..., B_n\}$ be a partition with $\beta_i = \inf_{\omega \in B_i} f (\omega)$.  Let $\{C_1, ..., C_k\}$ be the partition such that for each $A_i$, $B_j$, there are some $C_l, C_{l+1}, ..., C_{l+h}$ with $\cup C_l = A_i$, $\cup C_h = A_j$ (in other words, partition by both $A$ and $B$).  Then consider $\sum_{i=1}^n \beta_i \mu(B_i) \le \sum_{i=1}^h \gamma_i \mu(C_i) \le \sum_{i=1}^k f_i A_i$.
+\\ \\
+(2) We know $0 \le \int f d \mu$.  Now, let $f(\omega) \le g(\omega)$.  Then $\int f d \mu = \sup \sum_{i=1}^m \inf \omega \in A_i f (\omega) \mu(A_i) \le \sum \sum_{i=1}^m \inf \omega \in A_i g(\omega) \mu(A_i) = \int g d \mu$.
+\\ \\
+(3) $\int f_n d \mu$ non-decreasing, $\int f_n d \mu \le \int f d \mu$.  Hence, $\lim_{n \to \infty} \int f_n d \mu \le \int f d \mu$.
+\\ \\
+Note it is sufficient to prove for all partitions, $\lim_{n \to \infty} \int f_n d \mu \ge \sum_{i=1}^m \mu(A_i) f_i$ i.e. for all $\epsilon$, there is a large enough $n$ such that
+$$\int f_n d \mu \ge \sum_{i=1}^m (f_i - \epsilon) \mu(A_i)$$
+Let $A_{i, n} = \{ \omega \in A_i : f_n(\omega) \ge x_i - \epsilon \}$.  $A_{0, n} = \Omega \backslash \cup_{i=1}^m A_{i, n}$.  $\int f_n d \mu \ge \int - \epsilon \sum_{i=1}^m \mu(A_i)$ for $i = 1, ..., m$.
+\\ \\
+$\int f_n d \mu \ge \sum_{i=1}^m \inf_{\omega \in A_{i, n}} f_n(\omega) \mu(A_{i, n}) \ge \sum_{i=1}^m (x_i - \epsilon) \mu(A_{i,n})$ so $A_{i, n} \uparrow A_i$.
+\\ \\
+Note this assumes $\mu(A_i) < \infty$.  If $\mu(A_1), ..., \mu(A_{m_0}) < \infty, \mu(A_{m_0 + 1}), ..., \mu(A_m) = \infty$.  $S < \infty, \inf_{\omega \in A_i} f(\omega) = 0$ for all $i \in \{m_0 + 1, ..., m\}$.
+\\ \\
+(4) For $\int \alpha f d \mu = \sup_{\{A_i\}} \sum_{i=1}^m \mu(A_i) \inf_{\omega \in A_i} [ \alpha f(\omega) ] = \alpha \sup \sum \mu(A_i) \inf f(\omega) = \alpha \int f d \mu$.
+\\ \\
+Let $f, g$ be simple.  Obvious for $f, g$.  Now, all functions are limits from below of simple functions, so the whole thing becomes obvious.
 
+\end{proof}
+
+Review: Let $(\Omega, \mathcal{F},\mu)$ be a measure space, and let $f : \Omega \rightarrow [0, \infty]$ be a measurable function.  Then we define $\int f d \mu = \int_\Omega f (\omega) \mu(d \omega) = \sup_{\{A_n\}} \sum_{i=1}^N \inf_{\omega \in A_i} f (\omega_i) \mu(A_i)$, where $\Omega = \cup A_i$.
+\\ \\
+Properties:
+\begin{enumerate}
+\item $0 \le f \le g \Rightarrow \int f d \mu \le \int g d \mu$
+\item Integral is linear
+\item (Monotone Convergence Theorem) If $f_n, f \ge 0$ and $f_n(\omega) \uparrow f(\omega)$, then $\lim \int f_n d \mu = \int \lim f_n d \mu = \int f d \mu$.
+\item If $f(\Omega) = \sum_{i=1}^N x_i \delta_{B_i}$ (step function), then $\int f d \mu = \sum_{i=1}^n x_i \mu(B_i)$.
+\end{enumerate}
+
+That is, monotonicity, linearity, MCT, and step functions.
+\\ \\
+If $f : \Omega \to \mathbb{R}$, write $f^+(\omega) = \max(f(\omega), 0)$ and $f_-(\omega) = \max(-f(\omega), 0)$.  Say $\int f d \mu = \int f^+ d \mu - \int f_- d \mu$.
+\\ \\
+\begin{theorem}
+(Fatou's Lemma).  On $(\Omega, \mathcal{F}, P)$, let $f_n \ge 0$ be any measurable functions.  Then $\int \lim f_n d \mu \le \lim \int f_n d \mu$.
+\end{theorem}
+\begin{proof}
+Set $g_n  = \inf_{h \ge n} f_h \uparrow g = \lim f_n$.  So $\lim \int g_n d \mu = \int \lim f_n d \mu$ (since $g_n$ are monotone).  But $g_n \le f_n$ so $\int g_n \le \int f_n$.  Taking the limit of both sides gives $\lim \int g_n \le \lim \int f_n$.  QED.
+\end{proof}
+Remarks:  This works for any $f_n \ge 0$.
+\\ \\
+Example: Enumerate the rationals in $[0,1]$ as $\Omega_1, \Omega_2, ...$.  Define $f(x) = \sum_{i=1}^\infty \frac{1}{i^2 \sqrt{|\Omega_i - x|}}$.  Claim: $f(x) < \infty$ (almost sure).
+\\ \\
+Proof: Let $f_n(x) = \sum_{i=1}^n \frac{1}{n^2} \frac{1}{\sqrt{|\Omega_i = x|}} \uparrow f(x)$.  Then $\int_0^1 f(x) dx \le \lim \sum \frac{1}{i^2} \int_0^1 \frac{dx}{\sqrt{|\Omega_i - x|} } \le \sum_{i=1}^\infty \frac{c}{i^2}$.
+\\ \\
+\$10 problem:
+Find a single $x$ such that $f(x) < \infty$.
+\\ \\
+\begin{theorem}
+(Dominated Convergence Theorem) On $(\Omega, \mathcal{F}, \mu)$, $f_n, f, g$ be measurable functions, $f_n(\omega) \rightarrow f(\omega)$ almost everywhere (i.e. almost sure), $|f_n| \le g$ and $\int g d \mu < \infty$, then $f_n, f$ are integrable and $\lim_{n \to \infty} \int f_n d \mu = \int f d \mu$.
+\end{theorem}
+\begin{proof}
+By hypothesis, $f_n^+ + f_n^- \le g$, $f_* = \lim \inf f_n$ and $f^* = \lim \sup f_n$ are both $\le g$.  Then $g + f^*$ and $g - f_* \ge 0$.  Therefore, $\int g d \mu + \int f_* d \mu = \int \lim \inf (g + f_n) d \mu \le \int g d  \mu + \lim \inf \int f_n d \mu$ by Fatou.
+\\ \\
+For all $x_n$ check $\lim \inf -x_n = - \lim \sup x_n$.  Then $\int g d \mu - \int f^* d \mu = \int \lim \inf (g - f_n) d \mu \le \int g d \mu - \lim \sup \int f_n d \mu$ by Fatou.
+\\ \\
+$\int \lim \inf f_n d \mu \le \lim \inf \int f_n d \mu \le \lim \sup \int f_n d \mu \le \int \lim \sup f_n d \mu$.  But because $f_n$ converges almost surely, everything is equal.
+\end{proof}
+
+A little probability (and a Homework Problem):
+\\ \\
+In English, Let $x_n$ for $1 \le n \le \infty$ be an independent exponential $(P(X_i > x) = e^{-x})$, $M_n = -\max_{1 \le i \le n} X_i$.  Find limit behavior of $M_n$.
+\\ \\
+In Math: Let $\Omega = \mathbb{R}^n$, $\mathcal{F}$ borel.  Let $G(x_1, ..., x_n) = \prod_{i=1}^\infty (1 - e^{-x_i})_+$.  This is a distribution function which given $G(box) = \prod \int_{a_i}^{b_i} e^{-x} dx \ge 0$.  Let $P$ be associated probability.  $X_i(\omega_1, ..., \omega_n)$.  $P(M_n \le x) = P(X_i \le x \textrm{ for all } i) = (1 - e^{-x})^n = e^{n \log(1 - e^{-x})}$.  So, for $x$ large, $\log(1 - e^{-x}) ~ e^{-x}$, set $x = \log n + C$.  $P(M_n \le x) ~ e^{-e^{-c}}$ (that is, the extreme value distribution).
+\\ \\
+HW Problem: \\
+(a): $x \ge 0$, $\frac{x}{1 + x^2} e^{-x^2/2} \le \int_x^\infty e^{-t^2/2} dt \le \frac{e^{-x^2/2}}{x}$.  \\ \\
+(b): Let $x_i$ be i.i.d. in $\mathcal{N}(0,1)$ (normal about $(0,1)$).  Let $y_i = \lfloor x_i \rfloor$.  Let $M_n = \max(y_i)$.  Show there exist integers $a_n, p_n \in (0,1)$, $P(M_n = a_n) ~ p_n$, $P(M_n = a_n - 1) ~ (1 - p_n)$. \\ \\
+(c):  $\lim \inf p_n \neq \lim \sup p_n$.
 
 \section{Week 5}
 This week covers material from sections 15 and 16 in the book.
