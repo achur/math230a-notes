@@ -65,6 +65,8 @@ Grading: Homework (30\%), Midterm (30\%), Final (40\%)
 Midterm: Thursday Nov. 3, in class; 5:30-8:00 pm; One $3 \times 5$ notecard allowed.
 \\ \\
 Final: Thursday, Dec. 15, 7-10 pm
+\\ \\
+Halloween Talk on Non-Measurable Sets: Monday (Oct 31) 5:30-6:30 in Pigott Hall (260-113).
 
 \subsection{Homeworks}
 
@@ -74,6 +76,8 @@ Final: Thursday, Dec. 15, 7-10 pm
 Problem: Let $F_1, F_2$ be distribution functions on $\mathbb{R}$.  Define $H_l(x,y) = (F_1(x) + F_2(y) - 1)_+$ where $(x)_+ = x$ if $x \ge 0$ and $0$ otherwise.  Define $H_u(x,y) = \min(F_1(x), F_2(y))$.  (a) Prove that $H_l$, $H_u$ are bivariate distribution functions with margins $F_1(x) = H_l(x, \infty) = H_u(x, \infty)$ and $F_2(y) = H_l(\infty, y) = H_u(\infty, y)$. (b) Prove for all $H(x,y)$, $F_1, F_2$ as margins, $H_l(x,y) \le H(x,y) \le H_u(x,y)$ for $-\infty < x,y < \infty$.
 \\ \\
 {\bf HW WEEK 4: READ Sec 15, 16.  Do Problems 15.1, 15.2, 16.1, 16.7 + PROBLEM (see it down there in the notes)}
+\\ \\
+{\bf HW WEEK 5: Read Sec 18, Do: 2, 4, 10, 13, 14}
 
 
 \section{Week 1}
@@ -592,25 +596,115 @@ In Math: Let $\Omega = \mathbb{R}^n$, $\mathcal{F}$ borel.  Let $G(x_1, ..., x_n
 \\ \\
 HW Problem: \\
 (a): $x \ge 0$, $\frac{x}{1 + x^2} e^{-x^2/2} \le \int_x^\infty e^{-t^2/2} dt \le \frac{e^{-x^2/2}}{x}$.  \\ \\
-(b): Let $x_i$ be i.i.d. in $\mathcal{N}(0,1)$ (normal about $(0,1)$).  Let $y_i = \lfloor x_i \rfloor$.  Let $M_n = \max(y_i)$.  Show there exist integers $a_n, p_n \in (0,1)$, $P(M_n = a_n) ~ p_n$, $P(M_n = a_n - 1) ~ (1 - p_n)$. \\ \\
+(b): Let $x_i$ be i.i.d. in $\mathcal{N}(0,1)$ (normal about $(0,1)$).  Let $y_i = \lfloor x_i \rfloor$.  Let $M_n = \max(y_i)$.  Show there exist integers $a_n, p_n \in (0,1)$, $P(M_n = a_n) \sim p_n$, $P(M_n = a_n - 1) \sim (1 - p_n)$. \\ \\
 (c):  $\lim \inf p_n \neq \lim \sup p_n$.
 
 \section{Week 5}
-This week covers material from sections 15 and 16 in the book.
+This week covers material from sections 18 - 20 in the book.
+\subsection{Product Measures}
+Suppose $(\Omega_1, \mathcal{F}_1)$ and $(\Omega_2, \mathcal{F}_2)$ are measure spaces.  Then $\Omega_1 \times \Omega_2 = \{(\omega_1, \omega_2) : \omega_1 \in \Omega_1 \textrm{ and } \omega_2 \in \Omega_2\}$.
+\\ \\
+If $A_1 \in \mathcal{F}_1$ and $A_2 \in \mathcal{F}_2$, then $A_1 \times A_2$ is a measurable rectangle.  Measurable rectangles form a semi-ring.  Check: $\Omega_1 \times \Omega_2$ OK.  $A_1 \times A_2 \cap B_1 \times B_2 = A_1 \cap B_1 \times A_2 \cap B_2$.  $(A_1 \times A_2)^C = A_1^C \times A_2 \cup \Omega_1 \times A_2^C$ which leads to disjoint union of rectangles.
+\\ \\
+\begin{defn} $\mathcal{F}_1 \times \mathcal{F}_2 = \sigma(\{A_1 \times A_2 : A_i \in \mathcal{F}_i\})$ \end{defn}
+Let $\Pi_1 : \Omega_1 \times \Omega_2 \rightarrow \Omega_1$ and $\Pi_2 : \Omega_1 \times \Omega_2$ be the coordinate projections onto $\Omega_1$ and $\Omega_2$ respectively.  Then $\mathcal{F}_1 \times \mathcal{F}_2$ is the smallest $\sigma$-algebra making $\Pi_n$ measurable for $n = 1, 2$.
+\\ \\
+Sections: $A \subset \Omega_1 \times \Omega_2$, $\omega_1 \in \Omega_1$.  Then $A_{\omega_1} = \{ \omega_2 : (\omega_1, \omega_2) \in A \}$.  $f : \Omega_1 \times \Omega_2 \rightarrow \Omega_3$ where $f_{\omega_1}(\omega)2 = f(\omega_1, \omega_2)$.
+\\ \\
+Fact: Sections are homeomorphisms for $\cup$, $\cap$, complementation.  That is, $(\cup A^i)_{\omega_1} = \cup A^i_{\omega_1}$.  Same for intersection and complementation.
+\\ \\
+\begin{lemma}
+(Section Lemma) If $A \subset \mathcal{F}_1 \times \mathcal{F}_2$, then $A_{\omega_1}$ is $\mathcal{F}_2$-measurable.  Similarly, if $f : \Omega_1 \times \Omega_2 \rightarrow \mathbb{R}$ is $\mathcal{F}_1 \times \mathcal{F}_2 measuable$, $f_{\omega_1} : \Omega_2 \rightarrow \mathbb{R}$ is $\mathcal{F}_2$-measurable.
+\end{lemma}
+\begin{proof}
+Let $\rho$ be $\{A \subset \Omega_1 \times \Omega_2 : A_{\omega_1} \textrm{ is measurable} \}$.  Note: $(A_1 \times A_2)_{\omega_1} = \emptyset$ if $\omega_1 \not\in A_1$ and $= A_2$ if $\omega_1 \in A_1$ is measurable.  Therefore, $\rho$ contains a $\Pi-$system of measurable rectangles.  Also, $\rho$ is closed under complements and disjoint unions.  Therefore, $\rho$ is a $\lambda$-system and $\rho \supset \mathcal{F}_1 \times \mathcal{F}_0$.  Further, $f_{\omega_1}^{-1}(B) = (f^{-1}(B))_{\omega_1}$ is measurable, so $f$ is measurable.  (Warning: the converse is false.  If $A \subset \Omega_1 \times \Omega_2$ and $A_{\omega_1}, A_{\omega_2}$ are measurable for all $\omega_1, \omega_2$, $A$ might not be measurable.  Example: $\Omega_1 = \Omega_2 = (0, 1]$ and $\mathcal{F}_i$ is the countable, co-countable $\sigma$-algebra.  The diagonal $\{(x, x)\}$ is not $\mathcal{F}_1 \times \mathcal{F}_2$ measurable, but every section is a point (so is countable).
 
-\subsection{Independence and Expectation}
+\end{proof}
 
-\subsection{Borel-Cantelli}
+\subsection{Kernels}
+$(\Omega_1, \mathcal{F}_1)$, $(\Omega_2, \mathcal{F}_2)$ are measure spaces.  A probability kernel is a map $K: \Omega_1 \times \mathcal{F}_2 \rightarrow [0,1]$ $K(\omega_1, A_2)$ such that:
+\begin{enumerate}
+\item $\forall A_2 \in \mathcal{F}_2$, $\omega_1 \rightarrow K(\omega_1, A_2)$ is Borel measurable
+\item $\forall \omega_1$, $K(\omega_1, A_2)$ is a probability measure in $A_2$.
+\end{enumerate}
+Examples:
+1.  $K(\omega_1, A_2) = \mu(A_2)$ where $\mu$ is some probability on $\mathcal{F}_2$.  2.  Families of probabilities.  Let $\{P_\theta(dx) \}_{\theta \in \Theta}$ family of probabilities.  e.g. $\Theta = \mathbb{R} \times (0, \infty)$, $P_{\mu, \sigma^2} \mathcal{N}(\mu, \infty)$.  Has $\mathcal{F}_\Theta$ measure structure.  $P_\Theta(A)$ is a kernel.  3.  $\Omega_1 = \Omega_2$ $K(\omega_1, A_2)$ is called a Markov kernel (so you get standard CS Markov chains by using $\Omega$ finite).
+\\ \\
+Suppose $K(\omega_1, A_2)$ is a kernel.  Consider $\mathcal{G} = \{ A \in \mathcal{F}_1 \times \mathcal{F}_2 : \omega_1 \mapsto K(\omega_1, A_{\omega_1}) \textrm{ is measurable} \}$.  Claim: $\mathcal{G} = \mathcal{F}_1 \times \mathcal{F}_2$.  Proof: $A_1 \times A_2 \in \mathcal{G}$ for $K(\omega_1, (A_1 \times A_1)_{\omega_1}) = I_{A_1}(\omega_1) K(\omega)1, A_2)$.
+\\ \\
+If $A \in \mathcal{G}$, then $K(\omega_1, (A^C)_{\omega_1}) = K(\omega_1, (A_{\omega_1})^C) = 1 - K(\omega_1, A_{\omega_1})$.  If $A_i \in \mathcal{G}$ are disjoint, $K(\omega_1, (\cup A^i)_\omega) = \sum_i K(\omega, A_i^\omega)$.
+\\ \\
+Let $\Pi$ be a probability on $\Omega_1$.  Define $\Pi K(A) = \int_{\Omega_1} k(\omega_1, A_{\omega_1}) \Pi(d \omega_1)$.  $A \in \mathcal{F}_1 \times \mathcal{F}_2$.  $\Pi K$ is a probability because $K(\omega_1, (\Omega_1 \times \Omega_2)_{\omega_1}) = K(\omega_1, \Omega_2) = 1$.  By properties of the integral, it is countably additive.
+\\ \\
+Note: (a) $\Pi K (A_1 \times A_2)  = \int_{A_1} K(\omega_1, A_2) \Pi(d \omega_1)$.  This gives $\Pi K$ integration.  First pick $\omega_1$ from $\Pi(.)$, then pick $\omega_2$ from $K(\omega_1, .)$.  (b) $\Pi K (A_1 \times \Omega_2) = \Pi(A_1)$ (marginal distribution).
+
+\subsection{Fubini's Theorem}
+\begin{theorem}
+(Fubini's Theorem for Kernels) $(\Omega_1, \mathcal{F}_1), (\Omega_2, \mathcal{F}_2), \Pi, K$ as above.  Let $f: \Omega_1 \times \Omega_2 \rightarrow [0, \infty]$ be $\mathcal{F}_1 \times \mathcal{F}_2$ measurable.  Then $\int_{\Omega_2} f_{\omega_1}(\omega_2) K(\omega_1, d \omega_2)$ is $\mathcal{F}_1$-measurable and
+$$\int_{\Omega_1 \times \Omega_2} f(\omega_1, \omega_2) d \Pi K(\omega_1, \omega_2) = \int_{\Omega_1} [\int_{\Omega_2} f_{\omega_1}(\omega_2) K(\omega_1, d \omega_2) ] \Pi (d \omega_1)$$
+\end{theorem}
+\begin{proof}
+Use 1-2-3 argument.  Let $\mathcal{G}$ be the class of all functions such that the theorem holds.  $G$ contains $\delta_{A_1 \times A_2}$ by previous definition.  Then $\mathcal{G}$ contains positive linear combinations: $\sum a_i f_i \in \mathcal{G}$ for nonnegative $a$, $f_i \in \mathcal{G}$.  By monotone convergence, $f_n \uparrow f$, $f_i \in \mathcal{G}$ means $f \in \mathcal{G}$.  Therefore, $\mathcal{G}$ contains all $\mathcal{F}_1 \times \mathcal{F}_2$ measurable functions.
+\end{proof}
+
+\begin{theorem}
+(Fubini for possibly negative functions) $\Pi$, $K$ as above. $f : \Omega_1 \times \Omega_2 \rightarrow [-\infty, \infty]$, $\mathcal{F}_1 \times \mathcal{F}_2$ measurable and $f$ is $\Pi K$-measurable.  Let $H = \{\omega_1 : f_{\omega_1} \textrm{ is } K(\Omega, .) integrable \}$.  Define $K f(\omega_1) = \int f_{\omega_1}(\omega_2) K(\omega_1, d \omega_2)$ if measurable, 0 otherwise.  Then $H \in \mathcal{F}_1$, $\Pi(H) = 1$ and fubini's theorem holds:
+$$\int f d \Pi K = \int_{\Omega_2} K f(\omega_1) \Pi(d \omega_1)$$
+\end{theorem}
+
+Warning: for $f : \Omega_1 \times \Omega_2 \rightarrow [-\infty, \infty]$, we assume $f$ is $\Pi K$ integrable, then we conclude that one of $\int f_{\omega_1}^{+/-} K(\omega_1, d \omega_2)$ has finite integral.
+Example: Let $\Omega_1 = (0, 1]$, Borel sets, Lebesgue measure.  Let $\Omega_2 = \{1, 2\}$ all subsets, counting measure.  $\Pi$ is the Lebesgue measure.  $K(\omega_1, 1) = K(\omega_1, 2) = 1/2$.  $f(\omega_1, \omega_2) = \frac{(-1)^{\omega_2}}{\omega_1}$ so $f_{\omega_1} (\omega_2) = -1/\omega_1$ if $\omega_2 = 1$ and $1/ \omega_1$ if $\omega_2 = 2$.  $K f (\omega_1) = 0$ but $\int f^+ d \Pi K = \int f^- d \Pi K = \infty$.
+\\ \\
+let $(\Omega, \mathcal{F}, \mu)$ be a measure space, $f(\omega, t) : \Omega \times (a,b) \rightarrow \mathbb{R}$.  Suppose $\int |f(\omega, t) \mu (d \omega) < \infty$ for all $t$.  Let $J(t) = \int f(\omega, t) \mu( d\omega)$.
+\begin{theorem}
+Suppose for each $A \in \mathcal{F}$, $\mu(A^C) = 0$, integrable $g(\omega)$ and open interval $I \subset (a,b)$ and for $\omega \in A$, $f(\omega, t$ is continuous at $x_0$ and $\sup_{t \in I} | f(\omega, t) | \le g(\omega)$, then $F(t)$ is continuous at $t_0$ and $\lim_{t \to t_0} f(\omega, t) \mu(d\omega) = \int f(\omega, t_0) \mu(d \omega)$.
+\end{theorem}
+\begin{theorem}
+Assume $\omega \in A$.  If $f(\omega, t$ is differentiable at $t_0$ and $\sup_{\omega \in I} | \frac{ f(\omega, t) - f(\omega, t_0) }{t - t_0} | \le g(\omega)$ then $J(t)$ is differentiable at $t_0$.
+\end{theorem}
+
+Of course, we can't always take limits inside.  Example: $f_n(x) = n^2 \delta_{(n, n+1)} \to 0$ almost surely on $(0, \infty)$.
+\\ \\
+\subsection{Uniform Integrability}
+Most useful for finite measures, so we will cover in terms of probability.
+
+\begin{defn}
+$f_n: \Omega \rightarrow \mathbb{R}$ is uniformly integrable $1 \le n < \infty$.  If $\forall t > 0$, $\exists A$ where $$\int_{\{\omega : |f_n(\omega) | > A\}} \int |f_n(\omega) | P(d \omega) < \epsilon$$ for all $n$.
+\end{defn}
+Example 1: Single functions If $|f|$ is integrable, then $\{f \}$ is uniformly integrable.  Proof: $f_n(\omega) = \delta_{\{ \omega : |f(\omega)| < n \}}(\omega) \rightarrow f(\omega)$ as $n \to \infty$ for all $\omega$.  By dominated convergence theorem, $\int f_n dP \rightarrow \int f (dP)$ so $\int |f_n| dP \rightarrow 0$.
+\\ \\
+Example 2: Finite families $f_1, ..., f_n$ are uniformly integrable.
+\\ \\
+Example 3: $f_n(x) = n^2 \delta_{(n, n+1)}$ is not uniformly integrable.
+\\ \\
+Example 4: Suppose $f_n$ with $1 \le n < \infty$ are integrable and $\exists \epsilon > 0$, $B < \infty$ with $\int |f_n|^{1+\epsilon} dP\ le B$ for all $n$ (usually, $\epsilon = 1$).  Then $\{ f_n\}$ is uniformly integrable.  Proof: $\int_{\{ \omega : |f_n^{1+\epsilon}| > A \}} | f_n | dP  \le \frac{1}{A^{1+\epsilon}} \int_{\{ \omega : |f_n^{1+\epsilon}| > A \}} |f_n|^{1+\epsilon} dP \le \frac{B}{A^{1+\epsilon}}$.  Choose $A$ large to make this small.
+
+\begin{theorem}
+Let $(\Omega, \mathcal{F}, P)$ a probability space, $f_n, f$ measurable with $f_n \to f$ almost surely and $f_n$ uniformly integrable.  Then $f$ is integrable and
+$$\lim_n \int f_n d P = \int f d P$$
+\end{theorem}
+\begin{proof}
+Given $A$ set, let $f_n(\omega)^A (\omega) = f_n(\omega)$ if $|f_n(\omega)| \le A$ or $0$ is $|f_n(\omega) | > A$.  Similar for $f^A$.  For $A$ fixed, then $f_n^A \to F^A$ almost surely and is bounded by $A$.  So by the dominated convergence theorem, $\int f_n^A d P \rightarrow \int f^A d P$.
+\\ \\
+Also Fatou tells us $\int f dP \le \lim \int f_n dP \le 1 + A < \infty$ so $f$ is integrable.  Now, choose $A$ large such that $\int |f_n - f| = \int_{\omega |f_n| > A} f_n + \int_{\omega |f_n| \le A} f_n - \int_{\omega |f_n| \le A} f - \int_{\omega |f_n| < A} f$
+which we just make less than $\epsilon$.
+\end{proof}
+
+\begin{theorem}
+Conversely, assume that $f_n \to f$ almost surely and $f_n$ and $f$ are integrable and nonnegative and $\lim \int f_n dt = \int f dt$.  Then, $f_n$ is uniformly integrable.
+\end{theorem}
+\begin{proof}
+For all $A$, $f_n^A \to f^A$ almost surely.  Choose $A$ so $\int_{|f| > A} f dP  < \epsilon$.  So there exists some $n_0$ such that $n > n_0$ implies $|\int f_n^A - \int f^A | < \epsilon$ for all $n > n_0$.  Then choose $A_1 > A$ so $\int_{\{|f_n| > A} |f_n| dP < \epsilon / 3$ for all $n \le n_0$.
+\\ \\
+$\int f_n dP = \int_{|f_n| > A} f_n dP + \int f_n^A dP$.  Now $\int_{f_n(\omega) > A} f_n DP \rightarrow \int_{f > A} f dP$ using DCT.  Choose $A$ so that the r.h.s. $< \epsilon/3$ and for $n$ large, the l.h.s. $< 2 \epsilon / 3$.
+\end{proof}
+
+
+
+
 
 
 \section{Week 6}
-This week covers material from sections 18 - 20 in the book.
-
-\subsection{Product Measures}
-
-\subsection{Fubini's Theorem}
-
-\subsection{Kernels}
 
 
 \section{Week 7}
