@@ -82,6 +82,8 @@ Problem: Let $F_1, F_2$ be distribution functions on $\mathbb{R}$.  Define $H_l(
 {\bf HW WEEK 6: Read Sec 20, 21, 22.  Do 20.21, 20.24, 20.25(a, b, d), 21.11, 21.15, 22.2, 22.3}
 \\ \\
 {\bf HW WEEK 8: Read Sec. 27.  Do 27.3, 27.4, 27.7, 27.10, 27.11}
+\\ \\
+{\bf HW WEEK 9: Read Sec. 25, 26.  Do 25.1, 25.3, 25.16, 26.15, 26.16, 26.17}
 
 
 \section{Week 1}
@@ -928,7 +930,96 @@ Notes will be posted online.
 
 
 \section{Week 9}
+Example: of R.V. that are pairwise independent, but that the CLT fails.
+\\ \\
+Let $\epsilon_1, ..., \epsilon_n$ be $\pm 1$ independent with probability 1/2.  Let $I = \{ (i, j) : 1 \le i < j \le n \}$.  Let $X_{(i, j)} = \epsilon_i \epsilon_j$.
+\\ \\
+These are Random Variables with mean 0.  Build a triangular array with $n$-th row $X_{(i, j)}$ enumerated in some way (such that there are ${n \choose 2}$ things in the $n$-th row.  Let $S_n = \sum X_{(i, j)}$ in the $n$-th row.  Observe $E(X_i) = 0$, $Var(S_n) = {n \choose 2}$ and $X_{(i, j)}$ are pairwise independent.
+\\ \\
+Claim: The CLT fails for this.  Look at $\frac{1}{\sqrt{{n \choose 2}}} S_n = \frac{1}{\sqrt{{n \choose 2}}} \{ \frac{ (\sum \epsilon_i)^2 - \sum \epsilon_i^2 }{2} \}$
+$$\sim \frac{1}{\sqrt{2}} \{ \sum_{i=1}^n \frac{\epsilon_i}{\sqrt{n}}^2 - 1 \} \Rightarrow \frac{1}{\sqrt{2}} (z^2 - 1)$$
+where $z^2 \sim \Chi_1^2$ (which is not Normal).
+\\ \\
+\subsection{Weak Convergence}
+\begin{defn}
+On $\mathbb{R}$, suppose $F_n(x), F(x)$ are distribution functions.  Say that $F_n \Rightarrow F$ (weak convergence) if $F_n(x) \to F(x)$ for every $x$ which is a continuity point of $F$.
+\end{defn}
 
+Example: Suppose that $F_n \leftrightarrow X_n = 1 - 1/n$ with probability 1/2, $1 + 1/n$ with probability 1/2.  Let $F \leftrightarrow X = 1$.  Then $F_n(1) = 1/2 \not\to F(1) = 1$, but $F_n(x) \to F(x)$ everywhere else.
+
+\begin{defn}
+We say $X_n \to_p X$ that $X_n$ converges in probability to $X$ if for all $\epsilon > 0$, $P \{ | X_n - X | > \epsilon \} \to 0$.  Note for this, we need $X_n$ and $X$ to be jointly defined.
+\end{defn}
+
+\begin{theorem}
+Let $X_n$, $X$ jointly defined.  Then $X_n \to X$ almost sure $\Rightarrow X_n \to_p X \Rightarrow (X_n \Rightarrow X)$.  All converses are false.
+\end{theorem}
+\begin{proof}
+If $X_n \to X$ almost sure, then $P(|X_n - X| > \epsilon) \to 0$.  Say $X_n \to_P X$.  Then $\forall x \in \mathbb{R}$, $P \{ X \le x - \epsilon \} - P \{ |X - X_n| \ge \epsilon \} \le P \{X_n \le x \} \le P \{X \le x + \epsilon \} - P \{ |X - X_n | \ge \epsilon \}$.
+\end{proof}
+
+\begin{theorem}
+(Slutzky Theorem) Let $(X_n, Y_n)$ be jointly defined.  Let $X_n \Rightarrow X$ and $X_n - Y_n \to_p 0$.  Then $Y_n \Rightarrow X$.
+\end{theorem}
+\begin{proof}
+Take any $x \in \mathbb{R}$.  Choose $y' < x < y''$ are continuity points of $F_x(.)$.  Then, given this choice, $\epsilon > 0$ such that $y' < x - \epsilon < x < x + \epsilon < y''$.  Then $P \{ X_n \le y'  \} - P \{ |X_n - Y_n| \ge \epsilon \} \le P \{ Y_n \le x \} \le P \{ X_n \le y'' \} + P \{ |X_n - Y_n | \ge \epsilon \}$.  Taking $n \to \infty$ gives $P \{X \le y' \} \le \lim\ \inf P \{ Y_n \le x \} \le \lim \sup P \{Y_n \le x \} \le P \{X \le y' \}$.
+\\ \\
+Now, let $x$ be a point of continuity of $F_x$.  Then squeeze in $y'$ and $y''$.  Then we're done.
+\end{proof}
+
+\subsection{Fourier Transforms and Weak Convergence}
+Recall: $F(x)$ is the distribution function of Random Variable $X$.  Let $F(x)$ be uniform on $[0,1]$.  Suppose $F(x)$ is continuous.  Then $P(F(x) \le x) = P(X \le F^{-1}(x)) = F(F^{-1}(x)) = x$.
+\\ \\
+Also, if $F(x)$ is any distribution function, then $X = F^{-1}(U)$ has distribution function $F(x)$.
+\\ \\
+So what happens if $F$ is not strictly monotone or is not continuous?  Define $F^{-1}(u) = \inf \{ x : u \le F(x) \}$.  Then the previous statements hold generally.
+
+\begin{theorem}
+(Skorhead) Suppose on $\mathbb{R}$, $F_n$, $F$ are distribution functions with $F_n \Rightarrow F$.  Then for some $(\Omega, \mathcal{F}, P)$ and random variables $Y_n$, $Y$ $P\{Y_n \le x \} = F_n(x)$ and $P(Y \le x) = F(x)$ and $Y_n(\omega) \to Y(\omega)$ for each $\omega$.
+\end{theorem}
+\begin{proof}
+Let $\Omega = (0, 1]$.  Set $Y_n(u) = F^{-1}(u)$ where $F^{-1}$ is defined as above.  Same for $Y(u)$.
+\\ \\
+Pick $u \in (0, 1)$.  Choose $\epsilon > 0$ and $x : Y(u) - \epsilon < x < Y(u)$ and $F \{ x \} = 0$.  Must have $u > F(x)$ so $u > F_n(x)$ for all $n$ sufficiently large, so $x < Y_n(u)$ for $n$ sufficiently large.  $Y(u) - \epsilon < Y_n(u) \Rightarrow Y(u) \le \lim \inf Y_n(u)$.  SImilarly, $u < u'$ so we get
+$$\lim \sup Y_n(u) \le Y(u')$$
+if $u$ is a point of continuity of $F(x)$.
+\\ \\
+We get $\lim \sup Y_n(u) \le Y(u)$ at only countably many points of discontinuity.  Set $Y_n'(u) = Y'(u) = 0$ at these: $Y' - Y$.  Else $P(Y(u) \le x) = F(x)$ and $Y_n'(u) \to Y'(u)$ for all $u$.
+\end{proof}
+Comment: If $P_n$, $P$ are probabilities on a complete metric space, $P_n \Rightarrow P$ if $\int_\Omega f(\omega) P_n(d \omega) \to \int_\Omega f(\omega) P(d \omega)$ for all bounded, continuous $f$.  Skorohead says $P_n \Rightarrow P \Leftrightarrow \exists Y_n, Y$ with $P(Y_n \in B) = P_n(B)$.
+\\ \\
+Corrolary: on $\mathbb{R}$ if $F_n \Rightarrow F$ then for all bounded and continuous $f$, $\int_{-\infty}^\infty f(x) F_n(dx) \rightarrow \int_{-\infty}^\infty f(x) F(dx)$.
+\\ \\
+Corrolary if $F_n \Rightarrow F$ then $d_n(t) = \int_{-\infty}^\infty e^{itx} F_n(dx) \to d(t)$.  
+\begin{theorem}
+ (Continuity Theorem) $F_n \Rightarrow F \Leftrightarrow d_n(t) \rightarrow d(t)$ for all $t \in (-\infty, \infty)$.  That is, if the Fourier transforms converge, the distribution functions do as well.
+\end{theorem}
+\begin{proof}
+$\Leftarrow$\\
+If $\{F_n\}$ is tight if for all $\epsilon$, there is some $R$ such that $F_n \{ |x| > R \} < \epsilon$ for all $n$.  Consider $u > 0$.
+$$\frac{1}{2u} \int_{-u}^u (1 - d_n(t)) dt = \int_{-\infty}^\infty \frac{1}{2u} \int_{-u}^u (1 - e^{itx}) dt F_n(dx)$$
+$$ = \int_{-infty}^\infty (1 - \frac{\cos(ux)}{xu}) F_n(dx) $$
+$$ \ge F_n \{ |x| > 2/u \} $$
+$d(t)$ is continuous at 0, $d(0) = 1$ so for $u$ small, $|1 - d(t) | < \epsilon$ for all $t$.
+\\ \\
+To show $F_n(x) \to F(x)$ for all $x$ continuity points of $F$, it is enough to show that $F_n \{ (A, x] \} \rightarrow F \{ (A, x] \}$ for all $A$ sufficiently small.  For $A, x$ take $R$ large such that $|A||x| < R$, $F_n \{ |x| > R \} < \epsilon$.  Can consider on $\delta_{(A, x]}$.  Now
+$$\int_{-R}^R f dF_n = \int_{-R}^R (f - g) d F_n + \int_{-R}^R g dF_n$$
+$$= \int_{-\infty}^\infty g(t) F_n (dt) + 3 \epsilon + \epsilon$$
+...
+...
+...
+
+\begin{theorem}
+(Uniqueness Theorem)
+If $F$ and $G$ are distribution functions and $d_F(t) = d_G(t)$ then $F = G$.
+\end{theorem}
+\begin{proof}
+Approximate $\delta_{(A, X]}$ by trigonometric polynomials.  This proves $F(A, x] = G(A, x]$ for points of continuity of both.  Intervals of this kind form a $\Pi$ system.  This generates the Borel sets.
+\end{proof}If $d(t)$ is uniformly continuous at all $t$.  Then $|d(t + h) - d(t) | \to 0$ as $h \to 0$.
+
+Comment: there is an inversion theorem which writes $F(x)$ as an integral in terms of $d_F$.  Can be useful, but isn't needed to prove continuity theorem.
+\\ \\
+Easy facts: 
 
 \section{Week 10}
 
