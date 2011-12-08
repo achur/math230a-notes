@@ -64,7 +64,9 @@ Grading: Homework (30\%), Midterm (30\%), Final (40\%)
 \\ \\
 Midterm: Thursday Nov. 3, in class; 5:30-8:00 pm; One $3 \times 5$ notecard allowed.
 \\ \\
-Final: Thursday, Dec. 15, 7-10 pm
+Final: Thursday, Dec. 15, 7-10 pm.  Room 380Y.  Guesses: we will profit from knowing 1. The Four T's Proof, 2. The proof of Lindeberg condition, 3. How to do the general birthday problem, 4. Something from measure theory, 5. Something about weak convergence.  Additional things to read up on: Stein's equation and the motivation for Stein's method, dependency graphs, Bernstein polynomial, Weierstrass approximation using weak law.  Take a look at characteristic functions and brush up on your complex.
+\\ \\
+{\bf Oh, and for God's sake... READ THEOREM 25.10!!!!!}
 \\ \\
 Halloween Talk on Non-Measurable Sets: Monday (Oct 31) 5:30-6:30 in Pigott Hall (260-113).
 
@@ -1018,10 +1020,36 @@ Approximate $\delta_{(A, X]}$ by trigonometric polynomials.  This proves $F(A, x
 \end{proof}If $d(t)$ is uniformly continuous at all $t$.  Then $|d(t + h) - d(t) | \to 0$ as $h \to 0$.
 
 Comment: there is an inversion theorem which writes $F(x)$ as an integral in terms of $d_F$.  Can be useful, but isn't needed to prove continuity theorem.
-\\ \\
-Easy facts: 
 
 \section{Week 10}
+On $I$ interval on $\mathbb{R}$ (maybe $I = [-\infty, \infty]$), let $F_{n, \theta}$ be distribution functions with $E_{n, \theta}(X) = \theta$, $Var(X) = \sigma_n^2(\theta)$.
+\begin{theorem}
+Say $U$ is a continuous function on $I$.  Then $|E_{n, \theta} U(X) - U(\theta) | \to 0$ as $n \to \infty$.  For each $\theta$, convergence is uniform in any $\theta$ interval when $\sigma_n^2(\theta) \to 0$ is uniform.
+\end{theorem}
+
+Corrolary: Bernstein polynomial: let $X = \frac{S_n}{n}$ where $S_n \sim Bin(n, \theta)$.
+$$E_{n, \theta} (U(X)) = \sum_{j=0}^n U(\frac{j}{n}) {n \choose j} \theta^j (1 - \theta)^{n-j}$$
+
+Last Theorem of 310A:
+
+\begin{theorem}
+(Helly Selection) $F_n(x)$ for $1 \le n < \infty$ any sequence of distribution functions.  Then $\exists n_k$ and $H(x)$ increasing with $0 \le H \le 1$ right continuous, there exists for each $x$ a continuity point of $H$ $F_{n_k}(x) \to H(x)$.
+\end{theorem}
+\begin{proof}
+Let $\{r_i\}_{i=1}^\infty$ be an enumeration of $\mathbb{Q} \subset \mathbb{R}$.  Then there exists some subsequence such that $F_{n_k}(r_i) \to G(r_i)$ for all $r \in \mathbb{Q}$.  Define $H(x) = \inf_{r > x} G(r)$.  Can check that $H(x)$ is weakly increasing, right-continuous, and equal to $G$ on $\mathbb{Q}$.  Keep going and you'll find that $F_{n_k} \to H(x)$ at continuity points (again, obvious -- make both the continuity and the convergence less than $1/2\epsilon$).
+\end{proof}
+Warning: $H(x)$ need not be a distribution function.  It might be $1$ everywhere or $0$ everywhere.  Other than that, $H(x)$ will actually be a distribution function (surprise, surprise, given that it meets all the other criteria).
+\\ \\
+Therefore, we can make the following statments:
+\begin{theorem}
+If $\{F_n\}_{n=1}^\infty$ is tight, then there exists a distribution function $F$ and some $n_k$ with $F_{n_k} \Rightarrow F$.
+\end{theorem}
+
+\begin{theorem}
+$\{F_n\}$ is tight $\Leftrightarrow$ for all $n_k$, there exists a $n_{k_i}$ and a distribution function $F$ such that $F_{n_{k_i}} \Rightarrow F$ (called ``Weak Subsequence Compactness'').  {\bf Please read Theorem 25.10.}
+\end{theorem}
+
+This should feel quite similar to the definition of compactness, because it basically is.
 
 
 % This is the Bibliography
